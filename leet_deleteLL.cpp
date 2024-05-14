@@ -1,24 +1,24 @@
-// Remove Nth node from end of List
+// Remove Nth ListNode from end of List
 
 #include <iostream> 
 using namespace std; 
   
-// Node class to represent 
-// a node of the linked list. 
-class Node { 
+// ListNode class to represent 
+// a ListNode of the linked list. 
+class ListNode { 
 public: 
     int data; 
-    Node* next; 
+    ListNode* next; 
   
     // Default constructor 
-    Node() 
+    ListNode() 
     { 
         data = 0; 
         next = NULL; 
     } 
   
     // Parameterised Constructor 
-    Node(int data) 
+    ListNode(int data) 
     { 
         this->data = data; 
         this->next = NULL; 
@@ -30,38 +30,38 @@ public:
 class Linkedlist { 
   
 public: 
-    Node* head;
+    ListNode* head;
     // Default constructor 
     Linkedlist() { head = NULL; } 
   
     // Function to insert a 
-    // node at the end of the 
+    // ListNode at the end of the 
     // linked list. 
-    void insertNode(int); 
+    void insertListNode(int); 
   
     // Function to print the 
     // linked list. 
     void printList(); 
   
     // Function to delete the 
-    // node at given position 
-    void deleteNode(int); 
+    // ListNode at given position 
+    void deleteListNode(int); 
 }; 
   
-// Function to insert a new node. 
-void Linkedlist::insertNode(int data) 
+// Function to insert a new ListNode. 
+void Linkedlist::insertListNode(int data) 
 { 
-    // Create the new Node. 
-    Node* newNode = new Node(data); 
+    // Create the new ListNode. 
+    ListNode* newListNode = new ListNode(data); 
   
     // Assign to head 
     if (head == NULL) { 
-        head = newNode; 
+        head = newListNode; 
         return; 
     } 
   
     // Traverse till end of list 
-    Node* temp = head; 
+    ListNode* temp = head; 
     while (temp->next != NULL) { 
   
         // Update temp 
@@ -69,14 +69,14 @@ void Linkedlist::insertNode(int data)
     } 
   
     // Insert at the last. 
-    temp->next = newNode; 
+    temp->next = newListNode; 
 } 
   
 // Function to print the 
-// nodes of the linked list. 
+// ListNodes of the linked list. 
 void Linkedlist::printList() 
 { 
-    Node* temp = head; 
+    ListNode* temp = head; 
   
     // Check for empty list. 
     if (head == NULL) { 
@@ -94,11 +94,11 @@ void Linkedlist::printList()
     
     
     
-Node* removeNthFromEnd(Node* head, int n) {
+ListNode* removeNthFromEnd(ListNode* head, int n) {
     int count=0;
-    Node* mover = head;
-    Node* mover2 = head;
-    Node* temp;
+    ListNode* mover = head;
+    ListNode* mover2 = head;
+    ListNode* temp;
     while(mover->next != nullptr)
     {
         mover = mover->next;
@@ -115,17 +115,45 @@ Node* removeNthFromEnd(Node* head, int n) {
     return(head);
 }
 
+
+ListNode* removeNthFromEnd2(ListNode* head, int n) {
+    ListNode* mover1 = head;
+    ListNode* mover2 = head;
+    ListNode* temp;
+    for(int i=0; i<n; i++)
+    {
+        mover1 = mover1->next;
+    }
+    if(mover1 == nullptr)
+    {
+        if(head->next ==nullptr) return(nullptr);
+        return(head->next);
+    }
+    while(mover1->next!= nullptr)
+    {
+        mover1 = mover1->next;
+        mover2 = mover2->next;  
+    }
+    temp = mover2->next;
+    //cout << temp->data << " " << mover2->data << endl;
+    mover2->next = temp->next;
+    delete temp;
+    return(head);
+}
+
 int main()
 {
     Linkedlist list;
-    list.insertNode(1); 
-    list.insertNode(2); 
-    list.insertNode(3); 
-    list.insertNode(4); 
-    list.insertNode(5); 
+    list.insertListNode(1); 
+    //int n=1;
+    list.insertListNode(2); 
+    list.insertListNode(3); 
+    list.insertListNode(4); 
+    list.insertListNode(5); 
+    int n=2;
     list.printList(); 
     cout << endl; 
-    removeNthFromEnd(list.head,2);
+    removeNthFromEnd2(list.head,n);
     list.printList();
 
 }
