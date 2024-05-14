@@ -90,12 +90,12 @@ void Linkedlist::printList()
         temp = temp->next; 
     } 
 } 
-  
+ 
     
     
     
 Node* removeNthFromEnd(Node* head, int n) {
-    int count;
+    int count=0;
     Node* mover = head;
     Node* mover2 = head;
     Node* temp;
