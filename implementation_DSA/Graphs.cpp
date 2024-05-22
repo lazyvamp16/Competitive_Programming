@@ -78,6 +78,37 @@ vector<int> dfs_graph(int n, unordered_map<int,vector<int>> adj)
 
 
 
+// Time Complexity: O(N+E) 
+// Space Complexity: O(N) + O(N) 
+// Auxiliary Space Complexity:  O(N) (recursion stack)
+void topodfs(int node, unordered_map<int,vector<int>> adj,vector<int> &vis,  stack<int> &st )
+{
+    vis[node]=1;
+    for(auto i : adj[node])
+    {
+        if(!vis[i]) topodfs(i,adj,vis,st);
+    }
+    st.push(node);
+}
+
+vector<int> toposort(int n, unordered_map<int,vector<int>> adj)
+{
+    vector<int> vis(n,0);
+    stack<int> st;
+    for(int i=0; i<n; i++)
+    {
+        if (!vis[i]) topodfs(i,adj,vis,st);
+    }
+    vector<int> ans;
+    while(!st.empty()) 
+    {
+        ans.push_back(st.top());
+        st.pop();
+    }
+    return(ans);
+}
+
+
 //TC = O(ElogV)
 //SC = O(N+E)
 vector<int> dijkstra (vector<vector<int>> &vec, int vertices, int edges, int source)
@@ -132,18 +163,21 @@ vector<int> dijkstra (vector<vector<int>> &vec, int vertices, int edges, int sou
 int main()
 {   
     Graph g;
-    g.addEdge(0,2,0);
-    g.addEdge(2,4,0);
-    g.addEdge(0,1,0);
-    g.addEdge(0,3,0);
+    g.addEdge(5,2,1);
+    g.addEdge(5,0,1);
+    g.addEdge(4,0,1);
+    g.addEdge(4,1,1);
+    g.addEdge(2,3,1);
+    g.addEdge(3,1,1);
     // g.printAdj();
 
-    int n=5;
+    int n=6;
     unordered_map<int,vector<int>> adj= g.adj;
 
     //vector<int> bfs = bfs_graph(n,adj);
-    vector<int> dfs = dfs_graph(n,adj);
-    for(int i:dfs) cout << i << " ";
+    //vector<int> dfs = dfs_graph(n,adj);
+    vector<int> topo = toposort(n,adj);
+    for(int i:topo) cout << i << " ";
 }
 
 
