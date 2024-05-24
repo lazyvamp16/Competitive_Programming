@@ -145,9 +145,9 @@ vector<int> dijkstra (vector<vector<int>> &vec, int vertices, int edges, int sou
         {
             if(nodeDistance + neighbours.second < dist[neighbours.first])
             {
-                dist[neighbours.first]=nodeDistance + neighbours.second;
                 auto record = st.find(make_pair(dist[neighbours.first],neighbours.first));
                 if (record!=st.end()) st.erase(record);
+                dist[neighbours.first]=nodeDistance + neighbours.second;
                 st.insert(make_pair(dist[neighbours.first],neighbours.first));
             }
         }
@@ -157,7 +157,52 @@ vector<int> dijkstra (vector<vector<int>> &vec, int vertices, int edges, int sou
 }
 
 
-
+vector<int> print_shortest_path()
+// from 1 to n
+{
+    int  n=5;
+    int m=6;
+    vector<vector<int>> edges = {{1,2,2}, {2,5,5}, {2,3,4}, {1,4,1},{4,3,3},{3,5,1}};
+    vector<pair<int,int>> adj[n+1];
+    vector<int> parent(n+1,1);
+    for(auto it: edges) 
+    {
+        adj[it[0]].push_back(make_pair(it[1],it[2]));
+        adj[it[1]].push_back(make_pair(it[0],it[2]));
+    }
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>> > pq;
+    vector<int> d(n+1,1e9);
+    d[1] = 0;
+    pq.push(make_pair(0,1));
+    while(!pq.empty())
+    {
+        int dis = pq.top().first;
+        int node = pq.top().second;
+        pq.pop();
+        for(auto i:adj[node])
+        {
+            int adjnode=i.first;
+            int adjdist=i.second;
+            if(dis+adjdist<d[adjnode])
+            {
+                d[adjnode] = dis + adjdist;
+                pq.push(make_pair(d[adjnode],adjnode));
+                parent[adjnode]= node; 
+            }
+        }
+    }
+    if(d[n]==1e9) return {-1};
+    vector<int> path;
+    int node = n;
+    while(parent[node]!=node)
+    {
+        path.push_back(node);
+        node = parent[node];
+    }
+    path.push_back(1);
+    reverse(path.begin(),path.end());
+    return path;
+}
 
 
 int main()
@@ -176,8 +221,10 @@ int main()
 
     //vector<int> bfs = bfs_graph(n,adj);
     //vector<int> dfs = dfs_graph(n,adj);
-    vector<int> topo = toposort(n,adj);
-    for(int i:topo) cout << i << " ";
+    //vector<int> topo = toposort(n,adj);
+    //for(int i:topo) cout << i << " ";
+    vector<int> path = print_shortest_path();
+    for(int i:path) cout << i << " ";
 }
 
 
