@@ -248,6 +248,38 @@ void findcity()
 }
 
 
+// prims algorithm Minimum spanning tree
+// TC = 2 O(E log E)
+// SC = E + V
+int spanningTree(int V, vector<vector<int>> adj[])
+    {
+        // min heap
+        priority_queue< vector<int>, vector<vector<int>>, greater<vector<int>> > pq;
+        vector<int> vis(V,0);
+        vector<pair<int,int>> mst; // storing the edges of the MST
+        int sum = 0;
+        pq.push({0,0,-1}); // weight, node, parent
+        while(!pq.empty()){
+            auto it = pq.top();
+            pq.pop();
+            int wt = it[0];
+            int node = it[1];
+            int parent = it[2];
+            if(!vis[node]) {
+                vis[node] = 1;
+                sum+=wt;
+                //mst.push_back({node,parent});
+                for(auto it: adj[node])
+                {
+                    int adjwt = it[1];
+                    int adjnode = it[0];
+                    if(!vis[adjnode]) pq.push({adjwt,adjnode,node});
+                }
+            }
+        }
+        //for(auto i:mst) cout << i.first << " " << i.second << endl;
+        return(sum);
+    }
 
 int main()
 {   
