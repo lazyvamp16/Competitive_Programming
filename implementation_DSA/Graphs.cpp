@@ -205,6 +205,50 @@ vector<int> print_shortest_path()
 }
 
 
+
+//floyd warshall algorithm TC: O(N^3)
+//Find the city with the smallest number of neighbours at a threshold distance
+void findcity()
+{
+    int n = 4, m = 4;
+    int distanceThreshold = 4;
+    vector<vector<int>> edges = {{0, 1, 3},{1, 2, 1}, {1, 3, 4}, {2, 3, 1}};
+    // {from,to,weight}
+    
+    vector<vector<int>> dist (n,vector<int>(n,INT_MAX));
+    for(auto it : edges) {
+        dist[it[0]][it[1]] = it[2];
+        dist[it[1]][it[0]] = it[2];
+    }
+    for(int i=0; i<n;i++) dist[i][i]=0;
+    
+    for(int k=0; k<n;k++){
+        for(int i=0; i<n;i++){
+            for(int j=0; j<n;j++){
+                if(dist[i][k]==INT_MAX || dist[i][k]==INT_MAX) continue;
+                dist[i][j] = min(dist[i][j],dist[i][k] + dist[k][j]);
+            }
+        }
+    }
+    int mincnt = n;
+    int ans =-1;
+    for(int i=0; i<n;i++){
+        int cnt=0;
+        for(int j=0; j<n;j++){
+            if(dist[i][j]<=distanceThreshold) {
+                cnt++;
+            }
+        }
+        if(cnt<=mincnt){
+            mincnt = cnt;
+            ans = i;
+        }
+    }
+    cout << ans;
+}
+
+
+
 int main()
 {   
     Graph g;
@@ -223,8 +267,9 @@ int main()
     //vector<int> dfs = dfs_graph(n,adj);
     //vector<int> topo = toposort(n,adj);
     //for(int i:topo) cout << i << " ";
-    vector<int> path = print_shortest_path();
-    for(int i:path) cout << i << " ";
+    //vector<int> path = print_shortest_path();
+    //for(int i:path) cout << i << " ";
+    findcity();
 }
 
 
