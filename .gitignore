@@ -1,2 +1,9 @@
 *.exe
 *.json
+*~
+# Ignore files with no extension
+*
+!*/         
+!*.cpp     
+!*.h        
+!.gitignore 
