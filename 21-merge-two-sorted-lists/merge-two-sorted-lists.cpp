@@ -26,16 +26,16 @@ public:
                 }
             }
             else if(head1){
-                ans->next = head1;
-                break;
-                //temp->val = head1->val;
-                //head1=head1->next;
+                //ans->next = head1;
+                //break;
+                temp->val = head1->val;
+                head1=head1->next;
             }
             else {
                 ans->next = head2;
-                break;
-                //temp->val = head2->val;
-                //head2 = head2->next;
+                //break;
+                temp->val = head2->val;
+                head2 = head2->next;
             }
             ans->next = temp;
             ans = ans->next;
