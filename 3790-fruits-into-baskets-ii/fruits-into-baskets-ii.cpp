@@ -2,15 +2,15 @@ class Solution {
 public:
     int numOfUnplacedFruits(vector<int>& fruits, vector<int>& baskets) {
         int cnt =0;
-        //unordered_set<int> used;
+        unordered_set<int> used;
         for(int i : fruits){
             bool flag = false;
             for(int j=0;j<baskets.size();j++){
-                //if(baskets[j]>=i && !used.count(j)){
-                if(baskets[j]>=i){
-                    //used.insert(j);
+                if(baskets[j]>=i && !used.count(j)){
+                //if(baskets[j]>=i){
+                    used.insert(j);
                     flag =true;
-                    baskets.erase(baskets.begin()+j);
+                    //baskets.erase(baskets.begin()+j);
                     break;
                 }
             }
