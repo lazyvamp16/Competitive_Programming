@@ -11,11 +11,11 @@ public:
         vector<int> powers;
         int power = 1;
         while (n > 0) {
-            if (n & 1) { // if last bit is 1
+            if (n%2 != 0) { // if last bit is 1
                 powers.push_back(power);
             }
-            power <<= 1; // next power of 2
-            n >>= 1;     // check next bit
+            power*=2; // next power of 2
+            n/=2;     // check next bit
         }
         return powers;
     }
