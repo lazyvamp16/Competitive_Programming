@@ -11,22 +11,30 @@
  */
 class Solution {
 public:
-    TreeNode* f(int start, int end, vector<int>& nums){
+    TreeNode* f(int start, int end, int mx, vector<int>& nums){
         if (start>=end) return nullptr;
-        int mx = *max_element(nums.begin()+start, nums.begin()+end);
+        TreeNode* node = new TreeNode(mx);
+        int mxe=nums[start];
+        int mxf = nums[end-1];
+        int index;
         for(int i=start; i<end; i++){
             if(nums[i]==mx) {
-                TreeNode* node = new TreeNode(mx);
-                node->left = f(start, i, nums);
-                node->right = f(i+1,end,nums);
-                return node;
+                index = i;
+                break;
             }
+            mxe = max(mxe,nums[i]);
         } 
-        return nullptr;
+        for(int i=index+1; i<end; i++){
+            mxf = max(mxf,nums[i]);
+        }
+        node->left = f(start, index, mxe, nums);
+        node->right = f(index+1,end,mxf, nums);
+        return node;;
     }
     TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
         int n= nums.size();
-        TreeNode* head = f(0,n, nums);
+        int mx = *max_element(nums.begin(), nums.end());
+        TreeNode* head = f(0,n, mx, nums);
         return head;
     }
 };
