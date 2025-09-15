@@ -1,6 +1,7 @@
 class Solution {
 public:
     int canBeTypedWords(string text, string brokenLetters) {
+        /*
         string word = "";
         vector<string> t;
         for(char i : text){
@@ -15,19 +16,25 @@ public:
         if(word!="") t.push_back(word);
         int cnt =0;
         for(string s : t){
-            
-            bool flag = true;
-            for(char x : s){
-                if(!flag) break;
-                for(char c : brokenLetters){
-                    if(c==x) {
-                        cnt++;
-                        flag=false;
-                        break;
-                    }
+        */
+        int cnt =0;
+        int bigcnt =1;
+        bool flag = true;
+        for(char x:text){
+            if(x==' '){
+                flag = true;
+                bigcnt++;
+                continue;
+            }
+            if(!flag) continue;
+            for(char c : brokenLetters){
+                if(c==x){
+                    cnt++;
+                    flag=false;
+                    break;
                 }
             }
         }
-        return t.size()-cnt;
+        return bigcnt-cnt;
     }
 };
