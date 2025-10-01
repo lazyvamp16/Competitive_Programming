@@ -1,8 +1,11 @@
 class Trie
 {
     struct Node{
-        vector<Node*> children{vector<Node*>(26,NULL)} ;
+        vector<Node*> children;
         bool isWord = false;
+        Node(){
+            children = vector<Node*>(26,nullptr);
+        }
     };
     Node *Root,*curr;
 
