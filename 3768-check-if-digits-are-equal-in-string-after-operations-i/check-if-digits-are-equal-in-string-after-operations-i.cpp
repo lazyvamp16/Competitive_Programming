@@ -8,7 +8,7 @@ public:
             for(int j=1; j<s.size(); j++){
                 int d= (s[j]-'0'+s[j-1]-'0')%10;
                 //cout << d << " ";
-                t.push_back(d+'0');
+                t+=d+'0';
             }
             s = t;
         }
