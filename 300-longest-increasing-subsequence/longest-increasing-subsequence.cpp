@@ -18,6 +18,8 @@ public:
         }
         return dp[0][0];
         */
+
+        /*
         int ans =1;
         vector<int> dp(n+1,1);
         //dp[0]=1;
@@ -30,5 +32,16 @@ public:
             ans = max(ans,dp[i]);
         }
         return ans;
+        */
+
+        vector<int> len;
+        for(int i : nums){
+            if(len.empty() || len.back()<i) len.push_back(i);
+            else{
+                auto it = lower_bound(len.begin(),len.end(),i);
+                *it = i;
+            }
+        }
+        return len.size();
     }
 };
