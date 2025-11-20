@@ -34,17 +34,13 @@ public:
             int l = v[0], r = v[1];
             int cnt = 0, ind1 = -1;
             auto it = s.upper_bound(r); // first > r
-            if (it != s.begin()) {
-                --it; // now <= r
-                while (true) {
-                    int x = *it;
-                    if (x < l) break;
-                    cnt++;
-                    if (cnt == 1) ind1 = x;
-                    if (cnt == 2) break;
-                    if (it == s.begin()) break;
-                    --it;
-                }
+            while (it != s.begin()) {
+                --it;
+                int x = *it;
+                if (x < l) break;
+                cnt++;
+                if (cnt == 1) ind1 = x;
+                if (cnt == 2) break;
             }
             if(cnt==1) {
                 for(int i=v[1]; i>=v[0];i--){
