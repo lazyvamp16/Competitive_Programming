@@ -5,4 +5,3 @@ and L1.id = L2.id - 1
 and L1.num = L3.num
 and L1.id = L3.id - 2
 and L2.id = L3.id - 1
-and L2.num = L3.num
